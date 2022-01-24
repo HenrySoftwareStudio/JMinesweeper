@@ -25,7 +25,7 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{ env.TIME }}
-          prerelease: false
+          prerelease: true
           title: Release Mk.6 @${{ env.TIME }}
           files: |
             LICENSE
