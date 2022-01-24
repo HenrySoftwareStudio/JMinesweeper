@@ -6,6 +6,6 @@ import main.ui.frame.GameFrame;
 public final class Game {
 
 	public Game() {
-		new GameFrame(DefaultValues.NameENG);
+		new GameFrame(DefaultValues.NAMEENG);
 	}
 }

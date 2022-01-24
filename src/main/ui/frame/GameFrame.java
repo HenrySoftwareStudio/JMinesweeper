@@ -1,15 +1,22 @@
 package main.ui.frame;
 
+import java.awt.Component;
 import java.awt.GraphicsConfiguration;
 import java.awt.HeadlessException;
+import java.awt.PopupMenu;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 
+import main.env.DefaultValues;
 import main.env.Values;
-
-import static main.env.Behavior.GameFrame.*;
+import main.objs.events.senders.OnBecomeVisibleSender;
+import main.ui.menubar.GameMenuBar;
+import main.ui.setup.SetupPanel;
 
 public class GameFrame extends JFrame implements WindowListener {
 
@@ -37,10 +44,31 @@ public class GameFrame extends JFrame implements WindowListener {
 	}
 	
 	private void setup() {
+		this.setDefaultCloseOperation(DefaultValues.CLOSINGBEHAVIOR);
+		this.setLocationRelativeTo(null);
+		this.setMinimumSize(DefaultValues.MINDIMENSION);
+		this.setJMenuBar(new GameMenuBar());
+		this.setView(new SetupPanel());
 		this.setVisible(true);
-		this.setDefaultCloseOperation(closingBehavior);
-		
 		Values.self = this;
+	}
+	
+	@Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+		if (b) {
+			OnBecomeVisibleSender.onEvent();
+		}
+	}
+	
+	public void setView(JComponent o) {
+		removeAllUnderHead();
+		add(o);
+		repaint();
+	}
+	
+	public void removeAllUnderHead() {
+		this.getContentPane().removeAll();
 	}
 
 	@Override
